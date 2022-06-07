@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Docker
 
 apt update
@@ -35,4 +37,3 @@ sudo apt-get install google-chrome-stable
 sudo apt install telegram-desktop
 
 #
-
