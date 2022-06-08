@@ -1,5 +1,22 @@
 #!/bin/bash
 
+while true
+do
+
+echo "What would you like to install?"
+echo "1) Docker"
+echo "2) Docker-compose"
+echo "3) Telegram Desktop"
+echo "4) All of it."
+echo "5) Exit"
+
+read -p "Print a number:" choice
+
+
+case $choice in
+
+1)
+
 #Docker
 
 apt update
@@ -12,7 +29,10 @@ usermod -aG docker ${USER}
 id -nG
 
 docker --version
+ 
+;;
 
+2)
 
 #Docker-compose
 
@@ -21,9 +41,40 @@ chmod +x /usr/local/bin/docker-compose
 
 docker-compose --version
 
+ ;;
+
+3)
+
 #Telegram Desktop
 
 sudo apt install telegram-desktop
+
+ ;;
+
+
+4) 
+
+#All of it.
+
+continue ;;
+
+5)
+
+#Exit
+
+break 
+
+;;
+
+*) continue
+
+;;
+
+esac
+
+exit 1
+
+done
 
 
 #Spotify(not working)
@@ -40,5 +91,5 @@ sudo apt install telegram-desktop
 # sudo apt-get install google-chrome-stable
 
 
-exit 1
+
 
