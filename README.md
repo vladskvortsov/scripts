@@ -1,1 +1,1 @@
-myinstall.sh - встановлення софту , Ubuntu.
+myinstall.sh - встановлення софту , Ubuntu/Debian.
