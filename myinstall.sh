@@ -13,7 +13,7 @@ echo "4) Google Chrome"
 echo "5) Вихід"
 
 read -p "                     
-Введіть будь-ласка номер(1-5):" choice
+Введіть будь ласка номер(1-5):" choice
 
 
 case $choice in
