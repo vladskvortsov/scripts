@@ -3,14 +3,17 @@
 while true
 do
 
-echo "What would you like to install?"
+echo "                     
+What would you like to install?
+                               "
 echo "1) Docker"
 echo "2) Docker-compose"
 echo "3) Telegram Desktop"
 echo "4) Google Chrome"
 echo "5) Exit"
 
-read -p "Print a number:" choice
+read -p "                     
+Print a number:" choice
 
 
 case $choice in
