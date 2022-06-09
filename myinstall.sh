@@ -4,16 +4,16 @@ while true
 do
 
 echo "                     
-What would you like to install?
+Що бажаєте встановити?
                                "
 echo "1) Docker"
 echo "2) Docker-compose"
 echo "3) Telegram Desktop"
 echo "4) Google Chrome"
-echo "5) Exit"
+echo "5) Вихід"
 
 read -p "                     
-Print a number:" choice
+Введіть будь-ласка номер(1-5):" choice
 
 
 case $choice in
