@@ -4,17 +4,38 @@
 function color(){
 
  GREEN="\033[0;32m"	
+ RED="\033[0;31m"
  NOCOLOR="\033[0m"
 
 echo -e "${GREEN} $1 ${NOCOLOR}"
  
 }
+
+function check_exit_code(){
  
+GREEN="\033[0;32m"  
+RED="\033[0;31m"
+NOCOLOR="\033[0m"
+
+exit_code=$(echo $?)
+
+if [ $exit_code > 0 ]
+then 
+
+ echo -e "${RED} Fail ${NOCOLOR}"
+
+elif [ $exit_code = 0 ]
+then 
+ echo -e "${GREEN} Success ${NOCOLOR}"
+
+fi
+}
+
+
 
 function Docker(){
 
 apt update
-apt install sudo
 apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
@@ -50,6 +71,10 @@ function Telegram-Desktop(){
 
 apt install telegram-desktop
 
+color "$(apt-cache policy telegram-desktop)"
+ 
+
+check_exit_code
 } 
 
 
@@ -119,6 +144,10 @@ $(docker --version)"
 
 color "                
 $(docker compose version)"
+
+color "
+$(apt-cache policy telegram-desktop)"
+
 
 
  ;;
