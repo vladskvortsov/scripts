@@ -1,26 +1,17 @@
 #!/bin/bash
 
-while true
-do
+ 
+function color(){
 
-echo "                     
-Що бажаєте встановити?
-                               "
-echo "1) Docker"
-echo "2) Docker-compose"
-echo "3) Telegram Desktop"
-echo "4) Google Chrome"
-echo "5) Вихід"
+ GREEN="\033[0;32m"	
+ NOCOLOR="\033[0m"
 
-read -p "                     
-Введіть будь ласка номер(1-5):" choice
+echo -e "${GREEN} $1 ${NOCOLOR}"
+ 
+}
+ 
 
-
-case $choice in
-
-1)
-
-#Docker
+function Docker(){
 
 apt update
 apt install apt-transport-https ca-certificates curl software-properties-common
@@ -31,13 +22,14 @@ apt install docker-ce
 usermod -aG docker ${USER}
 id -nG
 
-docker --version
- 
-;;
+color "                     
+$(docker --version)
+                            "
 
-2)
+} 
 
-#Docker-compose
+
+function Docker-compose(){
 
 apt update
 apt install apt-transport-https ca-certificates curl software-properties-common
@@ -47,22 +39,21 @@ apt update
 apt install docker-compose-plugin
 chmod +x /usr/local/bin/docker-compose
 
-docker-compose --version
+color "                     
+$(docker-compose --version)
+                           "
 
- ;;
+} 
 
-3)
 
-#Telegram Desktop
+function Telegram-Desktop(){
 
 apt install telegram-desktop
 
- ;;
+} 
 
 
-4) 
-
-#Google Chrome 
+function Google-Chrome(){
 
 apt-get update
 apt-get install wget
@@ -74,11 +65,66 @@ echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee
 apt-get update 
 apt-get install google-chrome-stable
 
-google-chrome-stable --version
+color "                        
+$(google-chrome-stable --version)
+                                "
+
+
+} 
+
+
+while true
+do
+
+
+
+echo "                     
+Що бажаєте встановити?
+                          "
+echo "1) Docker"
+echo "2) Docker-compose"
+echo "3) Telegram Desktop"
+echo "4) Google Chrome"
+echo "5) Все згадане"
+echo "6) Вихід"
+
+read -p "                     
+Введіть будь ласка номер(1-6):
+                      " choice
+
+case $choice in
+
+1) Docker
 
  ;;
 
-5)
+2) Docker-compose
+ 
+;;
+
+3) Telegram-Desktop
+
+ ;;
+
+
+4) Google-Chrome 
+
+ ;;
+
+5) Docker Docker-compose Telegram-Desktop Google-Chrome
+
+color "                
+$(docker --version)"
+
+color "                
+$(docker-compose --version)"
+
+color "                
+$(google-chrome-stable --version)"
+
+ ;;
+
+6)
 
 #Exit
 
@@ -86,11 +132,17 @@ break
 
 ;;
 
+
 *) continue
 
 ;;
 
+
+
+
 esac
+
+
 
 exit 1
 
