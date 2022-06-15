@@ -14,12 +14,12 @@ echo -e "${GREEN} $1 ${NOCOLOR}"
 function Docker(){
 
 apt update
+apt install sudo
 apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt update
 apt install docker-ce
-usermod -aG docker ${USER}
 id -nG
 
 color "                     
@@ -32,15 +32,15 @@ $(docker --version)
 function Docker-compose(){
 
 apt update
+apt install sudo
 apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt update
 apt install docker-compose-plugin
-chmod +x /usr/local/bin/docker-compose
 
 color "                     
-$(docker-compose --version)
+$(docker compose version)
                            "
 
 } 
@@ -56,9 +56,7 @@ apt install telegram-desktop
 function Google-Chrome(){
 
 apt-get update
-apt-get install wget
-apt-get install sudo
-apt-get install gnupg
+apt-get install wget sudo gnupg
 
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
@@ -111,16 +109,17 @@ case $choice in
 
  ;;
 
-5) Docker Docker-compose Telegram-Desktop Google-Chrome
+5) Docker
+Docker-compose
+Telegram-Desktop
+Google-Chrome
 
 color "                
 $(docker --version)"
 
 color "                
-$(docker-compose --version)"
+$(docker compose version)"
 
-color "                
-$(google-chrome-stable --version)"
 
  ;;
 
