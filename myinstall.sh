@@ -11,25 +11,23 @@ echo -e "${GREEN} $1 ${NOCOLOR}"
  
 }
 
-function check_exit_code(){
+#function check_exit_code(){
  
-GREEN="\033[0;32m"  
-RED="\033[0;31m"
-NOCOLOR="\033[0m"
+#GREEN="\033[0;32m"  
+#RED="\033[0;31m"
+#NOCOLOR="\033[0m"
+#exit_code=$(echo $?)
 
-exit_code=$(echo $?)
+#if [ $exit_code = 0 ]
+#then 
+# echo -e "${GREEN} Success ${NOCOLOR}"
 
-if [ $exit_code > 0 ]
-then 
+#elif [ $exit_code > 0 ]
+#then 
 
- echo -e "${RED} Fail ${NOCOLOR}"
-
-elif [ $exit_code = 0 ]
-then 
- echo -e "${GREEN} Success ${NOCOLOR}"
-
-fi
-}
+# echo -e "${RED} Fail ${NOCOLOR}"
+#fi
+#}
 
 
 
@@ -74,7 +72,7 @@ apt install telegram-desktop
 color "$(apt-cache policy telegram-desktop)"
  
 
-check_exit_code
+#check_exit_code
 } 
 
 
@@ -138,17 +136,22 @@ case $choice in
 Docker-compose
 Telegram-Desktop
 Google-Chrome
+#check_exit_code
 
 color "                
 $(docker --version)"
 
+#check_exit_code
+
 color "                
 $(docker compose version)"
+
+#check_exit_code
 
 color "
 $(apt-cache policy telegram-desktop)"
 
-
+#check_exit_code
 
  ;;
 
