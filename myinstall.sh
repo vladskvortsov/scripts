@@ -33,12 +33,12 @@ echo -e "${GREEN} $1 ${NOCOLOR}"
 
 function Docker(){
 
-apt update
-apt install apt-transport-https ca-certificates curl software-properties-common
+apt update -y
+apt install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt update
-apt install docker-ce
+apt install -y docker-ce
 id -nG
 
 color "                     
@@ -50,13 +50,13 @@ $(docker --version)
 
 function Docker-compose(){
 
-apt update
-apt install sudo
-apt install apt-transport-https ca-certificates curl software-properties-common
+apt update -y
+apt install -y sudo
+apt install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt update
-apt install docker-compose-plugin
+apt install -y docker-compose-plugin
 
 color "                     
 $(docker compose version)
@@ -67,7 +67,7 @@ $(docker compose version)
 
 function Telegram-Desktop(){
 
-apt install telegram-desktop
+apt install -y telegram-desktop
 
 color "$(apt-cache policy telegram-desktop)"
  
@@ -78,13 +78,13 @@ color "$(apt-cache policy telegram-desktop)"
 
 function Google-Chrome(){
 
-apt-get update
-apt-get install wget sudo gnupg
+apt-get update -y
+apt-get install -y wget sudo gnupg
 
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
 apt-get update 
-apt-get install google-chrome-stable
+apt-get install -y google-chrome-stable
 
 color "                        
 $(google-chrome-stable --version)
