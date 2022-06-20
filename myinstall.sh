@@ -1,15 +1,6 @@
 #!/bin/bash
 
- 
-function color(){
 
- GREEN="\033[0;32m"	
- RED="\033[0;31m"
- NOCOLOR="\033[0m"
-
-echo -e "${GREEN} $1 ${NOCOLOR}"
- 
-}
 
 
 
@@ -18,40 +9,21 @@ function check_installedv(){
 GREEN="\033[0;32m"  
 RED="\033[0;31m"
 NOCOLOR="\033[0m"
-installedv=$(apt-cache policy $1 | grep Installed)
+installedv=$(apt-cache policy $2 | grep Installed)
 
 if [[ $installedv == *none* ]]
 then
 
- echo -e "${RED} Fail ${NOCOLOR}"
+ echo -e "${RED} $1
+   Fail ${NOCOLOR}"
 
 else 
- echo -e "${GREEN} Success ${NOCOLOR}"
+ echo -e "${GREEN} $1
+   Success ${NOCOLOR}"
 
 
 fi
 }
-
-
-#function check_exit_code(){
- 
-#GREEN="\033[0;32m"  
-#RED="\033[0;31m"
-#NOCOLOR="\033[0m"
-#exit_code=$(echo $?)
-
-#if [ $exit_code -eq 0 ]
-#then
-# echo -e "${GREEN} Success ${NOCOLOR}"
-
-#else 
-
-# echo -e "${RED} Fail ${NOCOLOR}"
-#exit 1
-#fi
-
-#}
-
 
 
 function Docker(){
@@ -64,10 +36,8 @@ apt update
 apt install -y docker-ce
 id -nG
 
-color "                     
-$(docker --version)
-                            "
-check_installedv docker-ce
+check_installedv "                      $(docker --version)
+                            " docker-ce
 
 } 
 
@@ -82,10 +52,9 @@ add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu
 apt update
 apt install -y docker-compose-plugin
 
-color "                     
+check_installedv "
 $(docker compose version)
-                           "
-check_installedv docker-compose-plugin
+                           " docker-compose-plugin
 
 } 
 
@@ -93,11 +62,9 @@ check_installedv docker-compose-plugin
 function Telegram-Desktop(){
 
 apt install -y telegram-desktop
-
-color "$(apt-cache policy telegram-desktop)"
-
  
-check_installedv telegram-desktop
+check_installedv "$(apt-cache policy telegram-desktop)" telegram-desktop
+
 
 } 
 
@@ -112,11 +79,10 @@ echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee
 apt-get update 
 apt-get install -y google-chrome-stable
 
-color "                        
+check_installedv "
 $(google-chrome-stable --version)
                                 "
-
-check_installedv google-chrome-stable
+ google-chrome-stable
 
 } 
 
@@ -138,7 +104,7 @@ echo "6) Вихід"
 
 read -p "                     
 Введіть будь ласка номер(1-6):
-                      " choice
+     " choice
 
 case $choice in
 
@@ -164,25 +130,16 @@ Docker-compose
 Telegram-Desktop
 Google-Chrome
 
-check_installedv google-chrome-stable
+check_installedv "
+$(docker --version)
+                            " docker-ce
 
+check_installedv "
+$(docker compose version)
+                           " docker-compose-plugin
 
-color "
-$(docker --version)"
+check_installedv "$(apt-cache policy telegram-desktop)" telegram-desktop
 
-check_installedv docker-ce
-
-
-color "
-$(docker compose version)"
-
-check_installedv docker-compose-plugin
-
-
-color "
-$(apt-cache policy telegram-desktop)"
-
-check_installedv telegram-desktop
 
  ;;
 
@@ -216,3 +173,35 @@ done
 # curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 # echo "deb http://repository.spotify.com стабільний небезкоштовний" | sudo tee /etc/apt/sources.list.d/spotify.list
 # apt-get update && sudo apt-get install spotify-client
+
+
+
+
+#function check_exit_code(){
+ 
+#GREEN="\033[0;32m"  
+#RED="\033[0;31m"
+#NOCOLOR="\033[0m"
+#exit_code=$(echo $?)
+
+#if [ $exit_code -eq 0 ]
+#then
+# echo -e "${GREEN} Success ${NOCOLOR}"
+
+#else 
+
+# echo -e "${RED} Fail ${NOCOLOR}"
+#fi
+
+#}
+
+
+
+#function color(){
+# GREEN="\033[0;32m"    
+# RED="\033[0;31m"
+# NOCOLOR="\033[0m"
+
+#echo -e "${GREEN} $1 ${NOCOLOR}"
+ 
+#}
