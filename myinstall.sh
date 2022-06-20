@@ -11,6 +11,28 @@ echo -e "${GREEN} $1 ${NOCOLOR}"
  
 }
 
+
+
+function check_installedv(){
+ 
+GREEN="\033[0;32m"  
+RED="\033[0;31m"
+NOCOLOR="\033[0m"
+installedv=$(apt-cache policy $1 | grep Installed)
+
+if [[ $installedv == *none* ]]
+then
+
+ echo -e "${RED} Fail ${NOCOLOR}"
+
+else 
+ echo -e "${GREEN} Success ${NOCOLOR}"
+
+
+fi
+}
+
+
 #function check_exit_code(){
  
 #GREEN="\033[0;32m"  
@@ -18,15 +40,16 @@ echo -e "${GREEN} $1 ${NOCOLOR}"
 #NOCOLOR="\033[0m"
 #exit_code=$(echo $?)
 
-#if [ $exit_code = 0 ]
-#then 
+#if [ $exit_code -eq 0 ]
+#then
 # echo -e "${GREEN} Success ${NOCOLOR}"
 
-#elif [ $exit_code > 0 ]
-#then 
+#else 
 
 # echo -e "${RED} Fail ${NOCOLOR}"
+#exit 1
 #fi
+
 #}
 
 
@@ -44,6 +67,7 @@ id -nG
 color "                     
 $(docker --version)
                             "
+check_installedv docker-ce
 
 } 
 
@@ -61,6 +85,7 @@ apt install -y docker-compose-plugin
 color "                     
 $(docker compose version)
                            "
+check_installedv docker-compose-plugin
 
 } 
 
@@ -70,9 +95,10 @@ function Telegram-Desktop(){
 apt install -y telegram-desktop
 
 color "$(apt-cache policy telegram-desktop)"
- 
 
-#check_exit_code
+ 
+check_installedv telegram-desktop
+
 } 
 
 
@@ -90,6 +116,7 @@ color "
 $(google-chrome-stable --version)
                                 "
 
+check_installedv google-chrome-stable
 
 } 
 
@@ -136,22 +163,26 @@ case $choice in
 Docker-compose
 Telegram-Desktop
 Google-Chrome
-#check_exit_code
 
-color "                
+check_installedv google-chrome-stable
+
+
+color "
 $(docker --version)"
 
-#check_exit_code
+check_installedv docker-ce
 
-color "                
+
+color "
 $(docker compose version)"
 
-#check_exit_code
+check_installedv docker-compose-plugin
+
 
 color "
 $(apt-cache policy telegram-desktop)"
 
-#check_exit_code
+check_installedv telegram-desktop
 
  ;;
 
@@ -185,7 +216,3 @@ done
 # curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 # echo "deb http://repository.spotify.com стабільний небезкоштовний" | sudo tee /etc/apt/sources.list.d/spotify.list
 # apt-get update && sudo apt-get install spotify-client
-
-
-
-
