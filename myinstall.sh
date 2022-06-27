@@ -81,8 +81,7 @@ apt-get install -y google-chrome-stable
 
 check_installedv "
 $(google-chrome-stable --version)
-                                "
- google-chrome-stable
+                                " google-chrome-stable
 
 } 
 
