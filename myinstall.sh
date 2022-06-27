@@ -5,8 +5,8 @@
 
 
 function check_installedv(){
- 
-GREEN="\033[0;32m"  
+
+GREEN="\033[0;32m"
 RED="\033[0;31m"
 NOCOLOR="\033[0m"
 installedv=$(apt-cache policy $2 | grep Installed)
@@ -17,7 +17,7 @@ then
  echo -e "${RED} $1
    Fail ${NOCOLOR}"
 
-else 
+else
  echo -e "${GREEN} $1
    Success ${NOCOLOR}"
 
@@ -39,7 +39,7 @@ id -nG
 check_installedv "                      $(docker --version)
                             " docker-ce
 
-} 
+}
 
 
 function Docker-compose(){
@@ -56,17 +56,17 @@ check_installedv "
 $(docker compose version)
                            " docker-compose-plugin
 
-} 
+}
 
 
 function Telegram-Desktop(){
 
 apt install -y telegram-desktop
- 
+
 check_installedv "$(apt-cache policy telegram-desktop)" telegram-desktop
 
 
-} 
+}
 
 
 function Google-Chrome(){
@@ -76,14 +76,14 @@ apt-get install -y wget sudo gnupg
 
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-apt-get update 
+apt-get update
 apt-get install -y google-chrome-stable
 
 check_installedv "
 $(google-chrome-stable --version)
                                 " google-chrome-stable
 
-} 
+}
 
 
 while true
@@ -91,7 +91,7 @@ do
 
 
 
-echo "                     
+echo "
 Що бажаєте встановити?
                           "
 echo "1) Docker"
@@ -101,30 +101,32 @@ echo "4) Google Chrome"
 echo "5) Все згадане"
 echo "6) Вихід"
 
-read -p "                     
+read -p "
 Введіть будь ласка номер(1-6):
-     " choice
+     " -a array
+ for choice in "${array[@]}"; do
+
 
 case $choice in
 
-1) Docker
+[1]* ) Docker
 
  ;;
 
-2) Docker-compose
- 
+[2]* ) Docker-compose
+
 ;;
 
-3) Telegram-Desktop
+[3]* ) Telegram-Desktop
 
  ;;
 
 
-4) Google-Chrome 
+[4]* ) Google-Chrome
 
- ;;
+;;
 
-5) Docker
+[5]* ) Docker
 Docker-compose
 Telegram-Desktop
 Google-Chrome
@@ -142,11 +144,11 @@ check_installedv "$(apt-cache policy telegram-desktop)" telegram-desktop
 
  ;;
 
-6)
+[6]* )
 
 #Exit
 
-break 
+break
 
 ;;
 
@@ -160,7 +162,7 @@ break
 
 esac
 
-
+done
 
 exit 1
 
@@ -169,7 +171,7 @@ done
 
 #Spotify(not working)
 
-# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 # echo "deb http://repository.spotify.com стабільний небезкоштовний" | sudo tee /etc/apt/sources.list.d/spotify.list
 # apt-get update && sudo apt-get install spotify-client
 
@@ -177,8 +179,8 @@ done
 
 
 #function check_exit_code(){
- 
-#GREEN="\033[0;32m"  
+
+#GREEN="\033[0;32m"
 #RED="\033[0;31m"
 #NOCOLOR="\033[0m"
 #exit_code=$(echo $?)
@@ -187,7 +189,7 @@ done
 #then
 # echo -e "${GREEN} Success ${NOCOLOR}"
 
-#else 
+#else
 
 # echo -e "${RED} Fail ${NOCOLOR}"
 #fi
@@ -197,10 +199,10 @@ done
 
 
 #function color(){
-# GREEN="\033[0;32m"    
+# GREEN="\033[0;32m"
 # RED="\033[0;31m"
 # NOCOLOR="\033[0m"
 
 #echo -e "${GREEN} $1 ${NOCOLOR}"
- 
+
 #}
