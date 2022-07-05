@@ -10,8 +10,10 @@ GREEN="\033[0;32m"
 RED="\033[0;31m"
 NOCOLOR="\033[0m"
 installedv=$(apt-cache policy $2 | grep Installed)
+exitc=$(echo $? | grep .)
 
-if [[ $installedv == *none* ]]
+if [[ $installedv == *none* ]] || [[ $exitc -gt 0 ]]
+
 then
 
  echo -e "${RED} $1
@@ -22,7 +24,9 @@ else
    Success ${NOCOLOR}"
 
 
+
 fi
+
 }
 
 
@@ -53,7 +57,7 @@ apt update
 apt install -y docker-compose-plugin
 
 check_installedv "
-$(docker compose version)
+$(apt-cache policy docker-compose-plugin)
                            " docker-compose-plugin
 
 }
@@ -61,9 +65,12 @@ $(docker compose version)
 
 function Telegram-Desktop(){
 
+apt-get update -y
 apt install -y telegram-desktop
 
-check_installedv "$(apt-cache policy telegram-desktop)" telegram-desktop
+check_installedv "
+$(apt-cache policy telegram-desktop)
+                           " telegram-desktop
 
 
 }
@@ -139,7 +146,9 @@ check_installedv "
 $(docker compose version)
                            " docker-compose-plugin
 
-check_installedv "$(apt-cache policy telegram-desktop)" telegram-desktop
+check_installedv "
+$(apt-cache policy telegram-desktop)
+                           " telegram-desktop
 
 
  ;;
