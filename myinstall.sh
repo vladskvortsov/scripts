@@ -43,12 +43,11 @@ fi
 
 function Docker(){
 
-apt update -y
-apt install -y apt-transport-https ca-certificates curl software-properties-common
+apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-apt update
-apt install -y docker-ce
+apt-get update
+apt-get install -y docker-ce
 id -nG
 
 check_installedv "                      $(docker --version)
@@ -59,13 +58,11 @@ check_installedv "                      $(docker --version)
 
 function Docker-compose(){
 
-apt update -y
-apt install -y sudo
-apt install -y apt-transport-https ca-certificates curl software-properties-common
+apt-get install -y sudo apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-apt update
-apt install -y docker-compose-plugin
+apt-get update
+apt-get install -y docker-compose-plugin
 
 check_installedv "
 $(apt-cache policy docker-compose-plugin)
@@ -76,7 +73,6 @@ $(apt-cache policy docker-compose-plugin)
 
 function Telegram-Desktop(){
 
-apt-get update -y
 apt-get install -y telegram-desktop
 
 check_installedv "
@@ -89,7 +85,6 @@ $(apt-cache policy telegram-desktop)
 
 function Google-Chrome(){
 
-apt-get update -y
 apt-get install -y wget sudo gnupg 
 
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -106,7 +101,6 @@ $(google-chrome-stable --version)
 
 function Spotify-client(){
 
-apt-get update -y
 apt-get install -y sudo gnupg curl
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -118,7 +112,6 @@ $(apt-cache policy spotify-client)
                            " spotify-client
 
 }
-
 
 
 
@@ -146,28 +139,28 @@ read -p "
 
 case $choice in
 
-[1]* ) Docker
+[1]* ) apt-get update -y && Docker
 
  ;;
 
-[2]* ) Docker-compose
+[2]* ) apt-get update -y && Docker-compose
 
 ;;
 
-[3]* ) Telegram-Desktop
+[3]* ) apt-get update -y && Telegram-Desktop
 
  ;;
 
 
-[4]* ) Google-Chrome
+[4]* ) apt-get update -y && Google-Chrome
 
 ;;
 
-[5]* ) Spotify-client
+[5]* ) apt-get update -y && Spotify-client
 
 ;;
 
-[6]* ) Docker
+[6]* ) apt-get update -y && Docker
 Docker-compose
 Telegram-Desktop
 Google-Chrome
