@@ -1,6 +1,17 @@
 #!/bin/bash
 
 
+ #############################################################################
+ #                                                                           #
+  #  myinstall.sh - installs soft on Ubuntu/Debian. Simple menu,            #
+ #   actual versions. Adapted for docker images. May need run with sudo.     # 
+  #   Software included:                                                    #
+ #     -Docker                                                               #
+  #    -Docker-compose                                                      #
+ #     -Telegram Desktop                                                     #
+  #    -Google Chrome                                                       #
+ #                                                                           #
+ #############################################################################
 
 
 
@@ -20,9 +31,9 @@ then
    Fail ${NOCOLOR}"
 
 else
+
  echo -e "${GREEN} $1
    Success ${NOCOLOR}"
-
 
 
 fi
@@ -96,8 +107,6 @@ $(google-chrome-stable --version)
 while true
 do
 
-
-
 echo "
 Що бажаєте встановити?
                           "
@@ -150,7 +159,6 @@ check_installedv "
 $(apt-cache policy telegram-desktop)
                            " telegram-desktop
 
-
  ;;
 
 [6]* )
@@ -169,49 +177,13 @@ break
 
 
 
-esac
+  esac
+
+ done
+
+  exit 1
 
 done
 
-exit 1
 
-done
-
-
-#Spotify(not working)
-
-# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
-# echo "deb http://repository.spotify.com стабільний небезкоштовний" | sudo tee /etc/apt/sources.list.d/spotify.list
-# apt-get update && sudo apt-get install spotify-client
-
-
-
-
-#function check_exit_code(){
-
-#GREEN="\033[0;32m"
-#RED="\033[0;31m"
-#NOCOLOR="\033[0m"
-#exit_code=$(echo $?)
-
-#if [ $exit_code -eq 0 ]
-#then
-# echo -e "${GREEN} Success ${NOCOLOR}"
-
-#else
-
-# echo -e "${RED} Fail ${NOCOLOR}"
-#fi
-
-#}
-
-
-
-#function color(){
-# GREEN="\033[0;32m"
-# RED="\033[0;31m"
-# NOCOLOR="\033[0m"
-
-#echo -e "${GREEN} $1 ${NOCOLOR}"
-
-#}
+#End
