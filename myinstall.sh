@@ -10,7 +10,7 @@
   #    -Docker-compose                                                      #
  #     -Telegram Desktop                                                     #
   #    -Google Chrome                                                       #
- #                                                                           #
+ #     -Spotify                                                              #
  #############################################################################
 
 
@@ -77,7 +77,7 @@ $(apt-cache policy docker-compose-plugin)
 function Telegram-Desktop(){
 
 apt-get update -y
-apt install -y telegram-desktop
+apt-get install -y telegram-desktop
 
 check_installedv "
 $(apt-cache policy telegram-desktop)
@@ -90,7 +90,7 @@ $(apt-cache policy telegram-desktop)
 function Google-Chrome(){
 
 apt-get update -y
-apt-get install -y wget sudo gnupg
+apt-get install -y wget sudo gnupg 
 
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
@@ -104,6 +104,26 @@ $(google-chrome-stable --version)
 }
 
 
+function Spotify-client(){
+
+apt-get update -y
+apt-get install -y sudo gnupg curl
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+apt-get update -y
+apt-get install -y spotify-client
+
+check_installedv "
+$(apt-cache policy spotify-client)
+                           " spotify-client
+
+}
+
+
+
+
+
+
 while true
 do
 
@@ -114,11 +134,12 @@ echo "1) Docker"
 echo "2) Docker-compose"
 echo "3) Telegram Desktop"
 echo "4) Google Chrome"
-echo "5) Все згадане"
-echo "6) Вихід"
+echo "5) Spotify"
+echo "6) Все згадане"
+echo "7) Вихід"
 
 read -p "
-Введіть будь ласка номер(1-6):
+Введіть будь ласка номер(1-7):
      " -a array
  for choice in "${array[@]}"; do
 
@@ -142,10 +163,15 @@ case $choice in
 
 ;;
 
-[5]* ) Docker
+[5]* ) Spotify-client
+
+;;
+
+[6]* ) Docker
 Docker-compose
 Telegram-Desktop
 Google-Chrome
+Spotify-client
 
 check_installedv "
 $(docker --version)
@@ -159,9 +185,14 @@ check_installedv "
 $(apt-cache policy telegram-desktop)
                            " telegram-desktop
 
+check_installedv "
+$(google-chrome-stable --version)
+                                " google-chrome-stable
+
+
  ;;
 
-[6]* )
+[7]* )
 
 #Exit
 
