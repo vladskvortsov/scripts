@@ -5,3 +5,4 @@ Software included:
 -Docker-compose
 -Telegram Desktop
 -Google Chrome
+-Spotify
