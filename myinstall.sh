@@ -23,7 +23,7 @@ NOCOLOR="\033[0m"
 installedv=$(apt-cache policy $2 | grep Installed)
 exitc=$(echo $? | grep .)
 
-if [[ $installedv == *none* ]] || [[ $exitc -gt 0 ]]
+if [[ $installedv == *none* ]]
 
 then
 
@@ -43,11 +43,13 @@ fi
 
 function Docker(){
 
-apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+apt-get install -y sudo apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt-get update
-apt-get install -y docker-ce
+apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo groupadd -f docker
+sudo usermod -aG docker $USER
 id -nG
 
 check_installedv "                      $(docker --version)
@@ -63,6 +65,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt-get update
 apt-get install -y docker-compose-plugin
+sudo groupadd -f docker
+sudo usermod -aG docker $USER
+id -nG
 
 check_installedv "
 $(apt-cache policy docker-compose-plugin)
@@ -85,7 +90,7 @@ $(apt-cache policy telegram-desktop)
 
 function Google-Chrome(){
 
-apt-get install -y wget sudo gnupg 
+apt-get install -y wget sudo gnupg
 
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
