@@ -49,7 +49,7 @@ add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo groupadd -f docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $(whoami)
 id -nG
 
 check_installedv "                      $(docker --version)
@@ -66,7 +66,7 @@ add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu
 apt-get update
 apt-get install -y docker-compose-plugin
 sudo groupadd -f docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $(whoami)
 id -nG
 
 check_installedv "
