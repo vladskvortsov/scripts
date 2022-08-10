@@ -15,3 +15,5 @@ Software included:
 -Google Chrome
 
 -Spotify
+
+-Atom Editor
