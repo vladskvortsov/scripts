@@ -1,6 +1,6 @@
 # myinstall
 _Bash script for software installiation.
- Makefile version present too._
+ Makefile version present._
 
 _Simple menu, actual versions.
 Adapted for docker images. Should run with sudo._
