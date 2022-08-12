@@ -1,7 +1,9 @@
 # myinstall
-_Bash script for software installiation._
+_Bash script for software installiation.
+ Makefile version present too._
 
-_Adapted for docker images. Should run with sudo._
+_Simple menu, actual versions.
+Adapted for docker images. Should run with sudo._
 
 ## Software included:
 - Docker
