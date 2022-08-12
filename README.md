@@ -1,19 +1,17 @@
-myinstall.sh - installs soft on Ubuntu/Debian. Simple menu, actual versions.
+# myinstall
+## _Bash script for software installiation_
+
 
 Adapted for docker images. Should run with sudo.
+## Software included:
+- Docker
+- Docker-compose
+- Telegram Desktop
+- Google Chrome
+- Spotify
+- Atom Editor
 
-Use "space" to choose a few "1 2 5" etc..
+> Note: Use "space" to choose a few "1 2 5" etc..
 
-Software included:
 
--Docker
-
--Docker-compose
-
--Telegram Desktop
-
--Google Chrome
-
--Spotify
-
--Atom Editor
+When done script prints out `installed package versions`.
