@@ -1,5 +1,5 @@
 # myinstall
-_Bash script for software installiation_
+_Bash script for software installiation._
 
 _Adapted for docker images. Should run with sudo._
 
