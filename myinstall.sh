@@ -145,7 +145,7 @@ echo -e "${TURQUOISE}
 #   Use "space" to choose a few "1 2 5" etc..                                   #
 #############################################################################
   ${NOCOLOR}"
-echo "Що бажаєте встановити?
+echo "What would you like to install?
                           "
 echo "1) Docker"
 echo "2) Docker-compose"
@@ -153,11 +153,11 @@ echo "3) Telegram Desktop"
 echo "4) Google Chrome"
 echo "5) Spotify"
 echo "6) Atom"
-echo "7) Все згадане"
-echo "8) Вихід"
+echo "7) All of it.."
+echo "8) Exit"
 
 read -p "
-Введіть будь ласка номер(1-7):
+Choose number(1-7):
      " -a array
  for choice in "${array[@]}"; do
 
