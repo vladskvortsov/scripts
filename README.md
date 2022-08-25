@@ -12,6 +12,8 @@ Adapted for docker images. Should run with sudo._
 - Google Chrome
 - Spotify
 - Atom Editor
+- Qbittorrent
+- Virtualbox
 
 > Note: Use "space" to choose a few "1 2 5" etc..
 
