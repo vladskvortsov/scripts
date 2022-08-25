@@ -12,6 +12,8 @@
   #    -Google Chrome                                                       #
  #     -Spotify                                                              #
   #    -Atom Editor                                                         #
+ #     -Qbittorrent                                                          #
+  #    -Virtualbox                                                          # 
  #############################################################################
 
 GREEN="\033[0;32m"
@@ -133,6 +135,36 @@ $(atom -version)
 
 }
 
+function Qbittorrent(){
+
+apt-get install -y sudo
+sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
+sudo apt update -y
+sudo apt install -y qbittorrent
+
+check_installedv "
+$(qbittorrent -v)
+                           " qbittorrent
+
+
+}
+
+function Virtualbox(){
+
+apt-get install -y wget sudo gnupg
+sudo apt-get install -y software–properties–common
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add –
+echo "deb [arch=amd64] http://virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+sudo apt-get update -y
+sudo apt-get install -y virtualbox
+
+check_installedv "
+$(apt-cache policy virtualbox)
+                           " virtualbox
+
+
+}
 
 
 while true
@@ -153,8 +185,10 @@ echo "3) Telegram Desktop"
 echo "4) Google Chrome"
 echo "5) Spotify"
 echo "6) Atom"
-echo "7) All of it.."
-echo "8) Exit"
+echo "7) Qbittorrent"
+echo "8) Virtualbox"
+echo "9) All of it.."
+echo "10) Exit"
 
 read -p "
 Choose number(1-7):
@@ -189,12 +223,23 @@ case $choice in
 
 ;;
 
-[7]* ) apt-get update -y && Docker
+[7]* ) apt-get update -y && Qbittorrent
+
+;;
+
+[8]* ) apt-get update -y && Virtualbox
+
+;;
+
+
+[9]* ) apt-get update -y && Docker
 Docker-compose
 Telegram-Desktop
 Google-Chrome
 Spotify-client
 Atom
+Qbittorrent
+Virtualbox
 
 check_installedv "
 $(docker --version)
@@ -215,11 +260,19 @@ $(google-chrome-stable --version)
 check_installedv "
 $(spotify -version)
                            " spotify-client
- ;;
 
 
+check_installedv "
+$(atom -version)
+                           " atom
+check_installedv "
+$(qbittorrent -v)
+                           " qbittorrent
 
-[8]* )
+
+;;
+
+[9]* )
 
 #Exit
 
