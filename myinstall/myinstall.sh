@@ -12,6 +12,25 @@ NOCOLOR="\033[0m"
 
 
 
+display_result(){
+  dialog --title "Finished" \
+    --no-collapse \
+    --msgbox "$result3
+     $result5
+     $result6" 0 0
+
+
+    result=$result5
+    #$result6
+
+
+
+}
+
+
+
+
+
 function check_installedv(){
 
 installedv=$(apt-cache policy $2 | grep Installed)
@@ -20,17 +39,28 @@ installedv=$(apt-cache policy $2 | grep Installed)
 if [[ $installedv == *none* ]]
 then
 
- echo -e "${RED} $1
-   Fail ${NOCOLOR}"
+
+
+  echo "$1
+    Fail"
+
+
+# echo -e "${RED} $1
+#   Fail ${NOCOLOR}"
 
 else
 
- echo -e "${GREEN} $1
-   Success ${NOCOLOR}"
+ echo " $1
+   Success"
+
+#   echo -e "${GREEN} $1
+#     Success ${NOCOLOR}"
+
 
 fi
 
 }
+
 
 
 function Docker(){
@@ -157,18 +187,18 @@ $(apt-cache policy virtualbox)
 }
 
 
-cmd=(dialog --keep-tite --menu "What would you like to install?" 22 76 16)
+cmd=(dialog --separate-output --checklist "What would you like to install?" 22 76 16)
 
-options=(1 "Docker"
-         2 "Docker-compose"
-         3 "Telegram Desktop"
-         4 "Google Chrome"
-         5 "Spotify"
-         6 "Atom"
-         7 "Qbittorrent"
-         8 "Virtualbox"
-         9 "All of it.."
-         10 "Exit")
+options=(1 "Docker" off
+         2 "Docker-compose" off
+         3 "Telegram Desktop" off
+         4 "Google Chrome" off
+         5 "Spotify" off
+         6 "Atom" off
+         7 "Qbittorrent" off
+         8 "Virtualbox" off
+         9 "All of it.." on
+         10 "Exit" off)
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -184,7 +214,14 @@ do
 
       ;;
 
-      3) apt-get update -y && Telegram-Desktop
+      3) result3=$(check_installedv "
+      $(apt-cache policy telegram-desktop)
+                                 " telegram-desktop)
+
+
+       apt-get update -y && Telegram-Desktop && display_result
+
+continue
 
        ;;
 
@@ -192,11 +229,20 @@ do
 
       ;;
 
-      5) apt-get update -y && Spotify-client
+      5)
+      result5=$(check_installedv "
+      $(spotify -version)
+                                 " spotify-client)
+
+       apt-get update -y && Spotify-client && display_result
 
       ;;
 
-      6) apt-get update -y && Atom
+      6) result6=$(check_installedv "
+      $(atom -version)
+                                 " atom)
+
+       apt-get update -y && Atom && display_result
 
       ;;
 

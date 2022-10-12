@@ -14,7 +14,7 @@
  #     -Spotify                                                              #
   #    -Atom Editor                                                         #
  #     -Qbittorrent                                                          #
-  #    -Virtualbox                                                          # 
+  #    -Virtualbox                                                          #
  #############################################################################
 
 GREEN="\033[0;32m"
@@ -273,7 +273,7 @@ $(qbittorrent -v)
 
 ;;
 
-[9]* )
+[10]* )
 
 #Exit
 
