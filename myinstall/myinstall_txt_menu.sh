@@ -1,15 +1,26 @@
 #!/bin/bash
 
-apt-get update
-apt-get install dialog
 
 
+ #############################################################################
+ #   myinstall.sh - installs soft on Ubuntu/Debian. Simple menu,             #
+  #  actual versions. Adapted for docker images. Should run with sudo.      #
+ #   Use "space" to choose a few "1 2 5" etc..                               #
+  #   Software included:                                                    #
+ #     -Docker                                                               #
+  #    -Docker-compose                                                      #
+ #     -Telegram Desktop                                                     #
+  #    -Google Chrome                                                       #
+ #     -Spotify                                                              #
+  #    -Atom Editor                                                         #
+ #     -Qbittorrent                                                          #
+  #    -Virtualbox                                                          # 
+ #############################################################################
 
 GREEN="\033[0;32m"
 RED="\033[0;31m"
 TURQUOISE="\033[0;96m"
 NOCOLOR="\033[0m"
-
 
 
 function check_installedv(){
@@ -157,104 +168,132 @@ $(apt-cache policy virtualbox)
 }
 
 
-cmd=(dialog --keep-tite --menu "What would you like to install?" 22 76 16)
-
-options=(1 "Docker"
-         2 "Docker-compose"
-         3 "Telegram Desktop"
-         4 "Google Chrome"
-         5 "Spotify"
-         6 "Atom"
-         7 "Qbittorrent"
-         8 "Virtualbox"
-         9 "All of it.."
-         10 "Exit")
-
-choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-
-for choice in $choices
+while true
 do
-    case $choice in
 
-      1) apt-get update -y && Docker
+echo -e "${TURQUOISE}
+#############################################################################
+#   myinstall.sh - installs soft on Ubuntu/Debian. Simple menu,             #
+ #  actual versions. Adapted for docker images. Should run with sudo.      #
+#   Use "space" to choose a few "1 2 5" etc..                                   #
+#############################################################################
+  ${NOCOLOR}"
+echo "What would you like to install?
+                          "
+echo "1) Docker"
+echo "2) Docker-compose"
+echo "3) Telegram Desktop"
+echo "4) Google Chrome"
+echo "5) Spotify"
+echo "6) Atom"
+echo "7) Qbittorrent"
+echo "8) Virtualbox"
+echo "9) All of it.."
+echo "10) Exit"
 
-       ;;
-
-      2) apt-get update -y && Docker-compose
-
-      ;;
-
-      3) apt-get update -y && Telegram-Desktop
-
-       ;;
-
-      4) apt-get update -y && Google-Chrome
-
-      ;;
-
-      5) apt-get update -y && Spotify-client
-
-      ;;
-
-      6) apt-get update -y && Atom
-
-      ;;
-
-      7) apt-get update -y && Qbittorrent
-
-      ;;
-
-      8) apt-get update -y && Virtualbox
-
-      ;;
-
-      9) apt-get update -y && Docker
-      Docker-compose
-      Telegram-Desktop
-      Google-Chrome
-      Spotify-client
-      Atom
-      Qbittorrent
-      Virtualbox
-
-      check_installedv "
-      $(docker --version)
-                                  " docker-ce
-
-      check_installedv "
-      $(docker compose version)
-                                 " docker-compose-plugin
-
-      check_installedv "
-      $(apt-cache policy telegram-desktop)
-                                 " telegram-desktop
-
-      check_installedv "
-      $(google-chrome-stable --version)
-                                      " google-chrome-stable
-
-      check_installedv "
-      $(spotify -version)
-                                 " spotify-client
+read -p "
+Choose number(1-7):
+     " -a array
+ for choice in "${array[@]}"; do
 
 
-      check_installedv "
-      $(atom -version)
-                                 " atom
-      check_installedv "
-      $(qbittorrent -v)
-                                 " qbittorrent
+case $choice in
 
-      ;;
+[1]* ) apt-get update -y && Docker
 
-      10) break
+ ;;
 
-      #Exit
+[2]* ) apt-get update -y && Docker-compose
 
-      ;;
+;;
 
-    esac
+[3]* ) apt-get update -y && Telegram-Desktop
 
-    exit 1
+ ;;
+
+
+[4]* ) apt-get update -y && Google-Chrome
+
+;;
+
+[5]* ) apt-get update -y && Spotify-client
+
+;;
+
+[6]* ) apt-get update -y && Atom
+
+;;
+
+[7]* ) apt-get update -y && Qbittorrent
+
+;;
+
+[8]* ) apt-get update -y && Virtualbox
+
+;;
+
+
+[9]* ) apt-get update -y && Docker
+Docker-compose
+Telegram-Desktop
+Google-Chrome
+Spotify-client
+Atom
+Qbittorrent
+Virtualbox
+
+check_installedv "
+$(docker --version)
+                            " docker-ce
+
+check_installedv "
+$(docker compose version)
+                           " docker-compose-plugin
+
+check_installedv "
+$(apt-cache policy telegram-desktop)
+                           " telegram-desktop
+
+check_installedv "
+$(google-chrome-stable --version)
+                                " google-chrome-stable
+
+check_installedv "
+$(spotify -version)
+                           " spotify-client
+
+
+check_installedv "
+$(atom -version)
+                           " atom
+check_installedv "
+$(qbittorrent -v)
+                           " qbittorrent
+
+
+;;
+
+[9]* )
+
+#Exit
+
+break
+
+
+;;
+
+*) continue
+
+;;
+
+
+  esac
 
  done
+
+  exit 1
+
+done
+
+
+#End
