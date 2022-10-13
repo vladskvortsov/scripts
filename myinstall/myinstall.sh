@@ -10,9 +10,34 @@ RED="\033[0;31m"
 TURQUOISE="\033[0;96m"
 NOCOLOR="\033[0m"
 
+display_progress(){
 
+
+  out=$( apt-get update -y && $1 )
+  percent=0
+
+  (
+  while test $percent != 101
+  do
+  echo $percent
+  echo "$out"
+  #echo "XXX"
+  percent=`expr $percent + 1`
+
+  #apt-get update -qq -o=Dpkg::Use-Pty=0
+  done
+  ) | dialog --title "Progress" --gauge "Installing.. " 10 60 0
+
+
+}
 
 display_result(){
+
+#dialog   --mixedgauge   "Installing" 10 20 40 spotify 5
+
+
+
+
   dialog --title "Finished" \
     --no-collapse \
     --msgbox "$result1
@@ -270,8 +295,8 @@ continue
       $(spotify -version)
                                  " spotify-client)
 
-       apt-get update -y && Spotify-client && display_result
-
+    display_progress Spotify-client && display_result
+#
 continue
 
       ;;
