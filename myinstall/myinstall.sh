@@ -15,34 +15,50 @@ NOCOLOR="\033[0m"
 display_result(){
   dialog --title "Finished" \
     --no-collapse \
-    --msgbox "$result3
+    --msgbox "$result1
+     $result2
+     $result3
+     $result4
      $result5
-     $result6" 0 0
-
-
-    result=$result5
-    #$result6
-
-
-
+     $result6
+     $result7
+     $result8
+     " 0 0
 }
 
 
 
+function check_installedv_txt(){
 
+installedv=$(apt-cache policy $2 | grep Installed)
+
+if [[ $installedv == *none* ]]
+then
+
+  echo "$1
+    Fail"
+
+else
+
+ echo " $1
+   Success"
+fi
+
+}
+
+
+#
 
 function check_installedv(){
 
 installedv=$(apt-cache policy $2 | grep Installed)
-#exitc=$(echo $? | grep .)
 
 if [[ $installedv == *none* ]]
 then
 
 
 
-  echo "$1
-    Fail"
+echo "$2: Fail"
 
 
 # echo -e "${RED} $1
@@ -50,8 +66,7 @@ then
 
 else
 
- echo " $1
-   Success"
+echo "$2: Success"
 
 #   echo -e "${GREEN} $1
 #     Success ${NOCOLOR}"
@@ -206,11 +221,25 @@ for choice in $choices
 do
     case $choice in
 
-      1) apt-get update -y && Docker
+      1)
+
+       apt-get update -y && Docker && display_result
+
+       result1=$(check_installedv "                      $(docker --version)
+                                   " docker-ce)
+
+continue
 
        ;;
 
-      2) apt-get update -y && Docker-compose
+      2) result2=$(check_installedv "
+      $(apt-cache policy docker-compose-plugin)
+                                 " docker-compose-plugin)
+
+       apt-get update -y && Docker-compose && display_result
+
+continue
+
 
       ;;
 
@@ -225,16 +254,25 @@ continue
 
        ;;
 
-      4) apt-get update -y && Google-Chrome
+      4) result4=$(check_installedv "
+      $(google-chrome-stable --version)
+                                      " google-chrome-stable)
+
+      apt-get update -y && Google-Chrome && display_result
+
+continue
 
       ;;
 
       5)
+
       result5=$(check_installedv "
       $(spotify -version)
                                  " spotify-client)
 
        apt-get update -y && Spotify-client && display_result
+
+continue
 
       ;;
 
@@ -244,13 +282,28 @@ continue
 
        apt-get update -y && Atom && display_result
 
+continue
+
+
       ;;
 
-      7) apt-get update -y && Qbittorrent
+      7) result7=$(check_installedv "
+      $(qbittorrent -v)
+                                 " qbittorrent)
+
+      apt-get update -y && Qbittorrent && display_result
+
+continue
 
       ;;
 
-      8) apt-get update -y && Virtualbox
+      8) result8=$(check_installedv "
+      $(apt-cache policy virtualbox)
+                                 " virtualbox)
+
+      apt-get update -y && Virtualbox && display_result
+
+continue
 
       ;;
 
@@ -300,6 +353,8 @@ continue
       ;;
 
     esac
+
+#display_result
 
     exit 1
 
