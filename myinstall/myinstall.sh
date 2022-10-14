@@ -15,7 +15,6 @@ NOCOLOR="\033[0m"
 
 display_progress(){
 
-
   out=$( apt-get update -y -qq -o=Dpkg::Use-Pty=0 && $1 )
   percent=0
 
@@ -24,10 +23,7 @@ display_progress(){
   do
   echo $percent
   echo "$out"
-  #echo "XXX"
   percent=`expr $percent + 1`
-
-  #apt-get update -qq -o=Dpkg::Use-Pty=0
   done
   ) | dialog --title "Progress" --gauge "Installing:
   $result1
@@ -43,12 +39,10 @@ display_progress(){
 
 }
 
+
 display_result(){
 
 #dialog   --mixedgauge   "Installing" 10 20 40 spotify 5
-
-
-
 
   dialog --title "Finished" \
     --no-collapse \
@@ -66,27 +60,6 @@ display_result(){
 
 
 
-function check_installedv_txt(){
-
-installedv=$(apt-cache policy $2 | grep Installed)
-
-if [[ $installedv == *none* ]]
-then
-
-  echo "$1
-    Fail"
-
-else
-
- echo " $1
-   Success"
-fi
-
-}
-
-
-#
-
 function check_installedv(){
 
 installedv=$(apt-cache policy $2 | grep Installed)
@@ -94,10 +67,7 @@ installedv=$(apt-cache policy $2 | grep Installed)
 if [[ $installedv == *none* ]]
 then
 
-
-
 echo "$2: Fail"
-
 
 # echo -e "${RED} $1
 #   Fail ${NOCOLOR}"
@@ -108,7 +78,6 @@ echo "$2: Success"
 
 #   echo -e "${GREEN} $1
 #     Success ${NOCOLOR}"
-
 
 fi
 
@@ -261,8 +230,7 @@ do
       1) result1=$(check_installedv "                      $(docker --version)
                                   " docker-ce)
 
-       display_progress Docker && display_result
-
+       display_progress Docker
 continue
 
        ;;
@@ -271,7 +239,7 @@ continue
       $(apt-cache policy docker-compose-plugin)
                                  " docker-compose-plugin)
 
-       display_progress Docker-compose && display_result
+       display_progress Docker-compose
 
 continue
 
@@ -281,8 +249,7 @@ continue
       $(apt-cache policy telegram-desktop)
                                  " telegram-desktop)
 
-      display_progress Telegram-Desktop && display_result
-
+      display_progress Telegram-Desktop
 continue
 
        ;;
@@ -291,7 +258,7 @@ continue
       $(google-chrome-stable --version)
                                       " google-chrome-stable)
 
-      display_progress Google-Chrome && display_result
+      display_progress Google-Chrome
 
 continue
 
@@ -301,7 +268,7 @@ continue
       $(spotify -version)
                                  " spotify-client)
 
-    display_progress Spotify-client && display_result
+    display_progress Spotify-client
 
 continue
 
@@ -311,7 +278,7 @@ continue
       $(atom -version)
                                  " atom)
 
-       display_progress Atom && display_result
+       display_progress Atom
 
 continue
 
@@ -321,8 +288,7 @@ continue
       $(qbittorrent -v)
                                  " qbittorrent)
 
-      display_progress Qbittorrent && display_result
-
+      display_progress Qbittorrent
 continue
 
       ;;
@@ -331,7 +297,7 @@ continue
       $(apt-cache policy virtualbox)
                                  " virtualbox)
 
-      display_progress Virtualbox && display_result
+      display_progress Virtualbox
 
 continue
 
@@ -379,7 +345,6 @@ continue
 
       ;;
 
-
     esac
 
 
@@ -389,5 +354,4 @@ continue
 
  display_result
 
-
-# echo $RESULTS
+#end
