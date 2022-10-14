@@ -10,10 +10,13 @@ RED="\033[0;31m"
 TURQUOISE="\033[0;96m"
 NOCOLOR="\033[0m"
 
+
+
+
 display_progress(){
 
 
-  out=$( apt-get update -y && $1 )
+  out=$( apt-get update -y -qq -o=Dpkg::Use-Pty=0 && $1 )
   percent=0
 
   (
@@ -26,7 +29,16 @@ display_progress(){
 
   #apt-get update -qq -o=Dpkg::Use-Pty=0
   done
-  ) | dialog --title "Progress" --gauge "Installing.. " 10 60 0
+  ) | dialog --title "Progress" --gauge "Installing:
+  $result1
+  $result2
+  $result3
+  $result4
+  $result5
+  $result6
+  $result7
+  $result8
+" 10 60 0
 
 
 }
@@ -40,14 +52,15 @@ display_result(){
 
   dialog --title "Finished" \
     --no-collapse \
-    --msgbox "$result1
-     $result2
-     $result3
-     $result4
-     $result5
-     $result6
-     $result7
-     $result8
+    --msgbox "
+    $result1
+    $result2
+    $result3
+    $result4
+    $result5
+    $result6
+    $result7
+    $result8
      " 0 0
 }
 
@@ -237,8 +250,7 @@ options=(1 "Docker" off
          6 "Atom" off
          7 "Qbittorrent" off
          8 "Virtualbox" off
-         9 "All of it.." on
-         10 "Exit" off)
+         9 "All of it.." on)
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 
@@ -246,12 +258,10 @@ for choice in $choices
 do
     case $choice in
 
-      1)
+      1) result1=$(check_installedv "                      $(docker --version)
+                                  " docker-ce)
 
-       apt-get update -y && Docker && display_result
-
-       result1=$(check_installedv "                      $(docker --version)
-                                   " docker-ce)
+       display_progress Docker && display_result
 
 continue
 
@@ -261,10 +271,9 @@ continue
       $(apt-cache policy docker-compose-plugin)
                                  " docker-compose-plugin)
 
-       apt-get update -y && Docker-compose && display_result
+       display_progress Docker-compose && display_result
 
 continue
-
 
       ;;
 
@@ -272,8 +281,7 @@ continue
       $(apt-cache policy telegram-desktop)
                                  " telegram-desktop)
 
-
-       apt-get update -y && Telegram-Desktop && display_result
+      display_progress Telegram-Desktop && display_result
 
 continue
 
@@ -283,20 +291,18 @@ continue
       $(google-chrome-stable --version)
                                       " google-chrome-stable)
 
-      apt-get update -y && Google-Chrome && display_result
+      display_progress Google-Chrome && display_result
 
 continue
 
       ;;
 
-      5)
-
-      result5=$(check_installedv "
+      5) result5=$(check_installedv "
       $(spotify -version)
                                  " spotify-client)
 
     display_progress Spotify-client && display_result
-#
+
 continue
 
       ;;
@@ -305,10 +311,9 @@ continue
       $(atom -version)
                                  " atom)
 
-       apt-get update -y && Atom && display_result
+       display_progress Atom && display_result
 
 continue
-
 
       ;;
 
@@ -316,7 +321,7 @@ continue
       $(qbittorrent -v)
                                  " qbittorrent)
 
-      apt-get update -y && Qbittorrent && display_result
+      display_progress Qbittorrent && display_result
 
 continue
 
@@ -326,61 +331,63 @@ continue
       $(apt-cache policy virtualbox)
                                  " virtualbox)
 
-      apt-get update -y && Virtualbox && display_result
+      display_progress Virtualbox && display_result
 
 continue
 
       ;;
 
-      9) apt-get update -y && Docker
+      9)
+
+       result1=$(check_installedv "                      $(docker --version)
+                                  " docker-ce)
+
+       result2=$(check_installedv "
+       $(apt-cache policy docker-compose-plugin)
+                                                             " docker-compose-plugin)
+
+       result3=$(check_installedv "
+       $(apt-cache policy telegram-desktop)
+                                                             " telegram-desktop)
+       result4=$(check_installedv "
+       $(google-chrome-stable --version)
+                                                             " google-chrome-stable)
+       result5=$(check_installedv "
+       $(spotify -version)
+                                                             " spotify-client)
+
+       result6=$(check_installedv "
+       $(atom -version)
+                                                             " atom)
+
+       result7=$(check_installedv "
+       $(qbittorrent -v)
+                                                             " qbittorrent)
+       result8=$(check_installedv "
+       $(apt-cache policy virtualbox)
+                                                             " virtualbox)
+
+
+       display_progress "$(Docker
       Docker-compose
       Telegram-Desktop
       Google-Chrome
       Spotify-client
       Atom
       Qbittorrent
-      Virtualbox
-
-      check_installedv "
-      $(docker --version)
-                                  " docker-ce
-
-      check_installedv "
-      $(docker compose version)
-                                 " docker-compose-plugin
-
-      check_installedv "
-      $(apt-cache policy telegram-desktop)
-                                 " telegram-desktop
-
-      check_installedv "
-      $(google-chrome-stable --version)
-                                      " google-chrome-stable
-
-      check_installedv "
-      $(spotify -version)
-                                 " spotify-client
-
-
-      check_installedv "
-      $(atom -version)
-                                 " atom
-      check_installedv "
-      $(qbittorrent -v)
-                                 " qbittorrent
+      Virtualbox)" && display_result
 
       ;;
 
-      10) break
-
-      #Exit
-
-      ;;
 
     esac
 
-#display_result
 
     exit 1
 
  done
+
+ display_result
+
+
+# echo $RESULTS
