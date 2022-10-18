@@ -27,14 +27,6 @@ update_progress(){
 }
 
 
-
-
-
-
-
-
-
-
 display_progress(){
 
   out=$( $1 )
@@ -145,7 +137,7 @@ $(apt-cache policy docker-compose-plugin)
 
 function Telegram-Desktop(){
 
-apt-get install -y telegram-desktop
+apt-get install -y apt-utils telegram-desktop
 
 check_installedv "
 $(apt-cache policy telegram-desktop)
@@ -157,7 +149,7 @@ $(apt-cache policy telegram-desktop)
 
 function Google-Chrome(){
 
-apt-get install -y wget sudo gnupg
+apt-get install -y apt-utils wget sudo gnupg
 sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
 apt-get update -y
@@ -172,7 +164,7 @@ $(google-chrome-stable --version)
 
 function Spotify-client(){
 
-apt-get install -y sudo gnupg curl
+apt-get install -y apt-utils sudo gnupg curl
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 apt-get update -y
@@ -186,7 +178,7 @@ $(spotify -version)
 
 function Atom(){
 
-apt-get install -y wget sudo gnupg
+apt-get install -y apt-utils wget sudo gnupg
 wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
 apt-get update -y
@@ -202,7 +194,7 @@ $(atom -version)
 
 function Qbittorrent(){
 
-apt-get install -y sudo
+apt-get install -y apt-utils sudo
 sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
 sudo apt update -y
 sudo apt install -y qbittorrent
@@ -216,7 +208,7 @@ $(qbittorrent -v)
 
 function Virtualbox(){
 
-apt-get install -y wget sudo gnupg
+apt-get install -y apt-utils wget sudo gnupg
 sudo apt-get install -y software–properties–common
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add –
@@ -256,117 +248,86 @@ for choice in $choices
 do
     case $choice in
 
-      1) result1=$(check_installedv "                      $(docker --version)
-                                  " docker-ce)
-
-       display_progress Docker
-continue
-
-       ;;
-
-      2) result2=$(check_installedv "
-      $(apt-cache policy docker-compose-plugin)
-                                 " docker-compose-plugin)
-
-       display_progress Docker-compose
-
-continue
-
-      ;;
-
-      3) result3=$(check_installedv "
-      $(apt-cache policy telegram-desktop)
-                                 " telegram-desktop)
-
-      display_progress Telegram-Desktop
-continue
-
-       ;;
-
-      4) result4=$(check_installedv "
-      $(google-chrome-stable --version)
-                                      " google-chrome-stable)
-
-      display_progress Google-Chrome
-
-continue
-
-      ;;
-
-      5) result5=$(check_installedv "
-      $(spotify -version)air.sh
-vlad@vlad-HP-ProBook-640-G1:~/scripts$ cd myinstall/
-
-                                 " spotify-client)
-
-    display_progress Spotify-client
-
-continue
-
-      ;;
-
-      6) result6=$(check_installedv "
-      $(atom -version)
-                                 " atom)
-
-       display_progress Atom
-
-continue
-
-      ;;
-
-      7) result7=$(check_installedv "
-      $(qbittorrent -v)
-                                 " qbittorrent)
-
-      display_progress Qbittorrent
-continue
-
-      ;;
-
-      8) result8=$(check_installedv "
-      $(apt-cache policy virtualbox)
-                                 " virtualbox)
-
-      display_progress Virtualbox
-
-continue
-
-      ;;
-
-      9)
+      1) display_progress Docker
 
        result1=$(check_installedv "                      $(docker --version)
                                   " docker-ce)
 
+continue
+
+       ;;
+
+      2) display_progress Docker-compose
+
        result2=$(check_installedv "
-       $(apt-cache policy docker-compose-plugin)
-                                                             " docker-compose-plugin)
+      $(apt-cache policy docker-compose-plugin)
+                                 " docker-compose-plugin)
 
-       result3=$(check_installedv "
+continue
 
-       $(apt-cache policy telegram-desktop)
-                                                             " telegram-desktop)
-       result4=$(check_installedv "
-       $(google-chrome-stable --version)
-                                                             " google-chrome-stable)
-       result5=$(check_installedv "
-       $(spotify -version)
-                                                             " spotify-client)
+      ;;
 
-       result6=$(check_installedv "
-       $(atom -version)
-                                                             " atom)
+      3) display_progress Telegram-Desktop
 
-       result7=$(check_installedv "
-       $(qbittorrent -v)
-                                                             " qbittorrent)
-       result8=$(check_installedv "
-       $(apt-cache policy virtualbox)
-                                                             " virtualbox)
+      result3=$(check_installedv "
+      $(apt-cache policy telegram-desktop)
+                                 " telegram-desktop)
 
+continue
 
-       display_progress "$(Docker
+       ;;
+
+      4) display_progress Google-Chrome
+
+      result4=$(check_installedv "
+      $(google-chrome-stable --version)
+                                      " google-chrome-stable)
+
+continue
+
+      ;;
+
+      5) display_progress Spotify-client
+
+    result5=$(check_installedv "
+   $(spotify -version)
+                              " spotify-client)
+
+continue
+
+      ;;
+
+      6) display_progress Atom
+
+      result6=$(check_installedv "
+      $(atom -version)
+                                 " atom)
+
+continue
+
+      ;;
+
+      7) display_progress Qbittorrent
+
+      result7=$(check_installedv "
+      $(qbittorrent -v)
+                                 " qbittorrent)
+
+continue
+
+      ;;
+
+      8) display_progress Virtualbox
+
+      result8=$(check_installedv "
+      $(apt-cache policy virtualbox)
+                                 " virtualbox)
+
+continue
+
+      ;;
+
+      9) display_progress "$(Docker
       Docker-compose
       Telegram-Desktop
       Google-Chrome
@@ -375,21 +336,46 @@ continue
       Qbittorrent
       Virtualbox)" && display_result
 
-      ;;
+      result1=$(check_installedv "                      $(docker --version)
+                                 " docker-ce)
 
+      result2=$(check_installedv "
+      $(apt-cache policy docker-compose-plugin)
+                                                            " docker-compose-plugin)
+
+      result3=$(check_installedv "
+
+      $(apt-cache policy telegram-desktop)
+                                                            " telegram-desktop)
+      result4=$(check_installedv "
+      $(google-chrome-stable --version)
+                                                            " google-chrome-stable)
+      result5=$(check_installedv "
+      $(spotify -version)
+                                                            " spotify-client)
+
+      result6=$(check_installedv "
+      $(atom -version)
+                                                            " atom)
+
+      result7=$(check_installedv "
+      $(qbittorrent -v)
+                                                            " qbittorrent)
+      result8=$(check_installedv "
+      $(apt-cache policy virtualbox)
+                                                            " virtualbox)
+
+      ;;
 
 
 
     esac
 
-
-    exit 1
-
-
+  exit 1
 
  done
 
- display_result
+display_result
 
 }
 
@@ -555,10 +541,10 @@ Reserve_menu(){
 
 }
 
+
 Menu
 
 #Reserve_menu
-
 
 
 
