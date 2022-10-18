@@ -1,10 +1,9 @@
 # myinstall
 
 Software installiation pack. Simple menu, actual versions.
-Adapted for docker images. Makefle version present.
+
+ Adapted for docker images. Makefle version present.
 `Should run with sudo.`
-
-
 
  - Based on bash
  - Based on Dialog
@@ -22,13 +21,15 @@ Adapted for docker images. Makefle version present.
 
 To use the script download the repository:
 
-sh```
+```sh
 git clone https://github.com/vladskvortsov/scripts.git
 cd scripts/myinstall/
+chmod +x myinstall.sh
 ```
 
 And run:
 
-sh```
+```sh
 bash myinstall.sh
 ```
+
