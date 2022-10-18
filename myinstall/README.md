@@ -25,10 +25,10 @@ To use the script download the repository:
 sh```
 git clone https://github.com/vladskvortsov/scripts.git
 cd scripts/myinstall/
-```
+sh```
 
 And run:
 
 sh```
 bash myinstall.sh
-```
+sh```
