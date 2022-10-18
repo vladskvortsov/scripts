@@ -1,12 +1,13 @@
 # myinstall
 
-Software installiation pack.
+Software installiation pack. Simple menu, actual versions.
+Adapted for docker images. Makefle version present.
+`Should run with sudo.`
+
+
 
  - Based on bash
  - Based on Dialog
-
-Simple menu, actual versions. Adapted for docker images.
-Makefle version present. 'Should run with sudo.'
 
 ## Software included:
 
