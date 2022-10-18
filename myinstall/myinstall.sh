@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 GREEN="\033[0;32m"
 RED="\033[0;31m"
@@ -20,8 +20,8 @@ update_progress(){
   echo "$out"
   percent=`expr $percent + 1`
   done
-  ) | dialog --title "$(grep PRETTY_NAME /etc/os-release | cut -d '"' -f 2- | cut -d '"' -f -1)" --gauge "Updating packages..
-" 10 60 0
+  ) | dialog --title "$(grep PRETTY_NAME /etc/os-release | cut -d '"' -f 2- | cut -d '"' -f -1)" --gauge "Updating packages,
+Running apt-get update.." 10 60 0
 
 
 }

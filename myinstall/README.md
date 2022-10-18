@@ -1,11 +1,15 @@
 # myinstall
-_Bash script for software installiation.
- Makefile version present._
 
-_Simple menu, actual versions.
-Adapted for docker images. Should run with sudo._
+Software installiation pack.
+
+ - Based on bash
+ - Based on Dialog
+
+Simple menu, actual versions. Adapted for docker images.
+Makefle version present. 'Should run with sudo.'
 
 ## Software included:
+
 - Docker
 - Docker-compose
 - Telegram Desktop
@@ -15,7 +19,15 @@ Adapted for docker images. Should run with sudo._
 - Qbittorrent
 - Virtualbox
 
-> Note: Use "space" to choose a few "1 2 5" etc..
+To use the script download the repository:
 
+sh```
+git clone https://github.com/vladskvortsov/scripts.git
+cd scripts/myinstall/
+```
 
-When done script prints out installed packages version.
+And run:
+
+sh```
+bash myinstall.sh
+```
